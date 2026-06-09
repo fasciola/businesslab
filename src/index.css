@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 15 40% 2%;
+    --foreground: 30 20% 92%;
+    --card: 15 40% 2%;
+    --card-foreground: 30 20% 92%;
+    --popover: 15 40% 2%;
+    --popover-foreground: 30 20% 92%;
+    --primary: 25 80% 53%;
+    --primary-foreground: 15 40% 2%;
+    --secondary: 30 10% 10%;
+    --secondary-foreground: 30 20% 92%;
+    --muted: 30 10% 10%;
+    --muted-foreground: 30 20% 50%;
+    --accent: 25 80% 53%;
+    --accent-foreground: 15 40% 2%;
+    --destructive: 10 70% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 20% 92% / 0.08;
+    --input: 30 20% 92% / 0.04;
+    --ring: 25 80% 53%;
+    --radius: 0.25rem;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #050302;
+    color: #F1EBE4;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+    word-break: keep-all;
+  }
+
+  ::selection {
+    background-color: rgba(232, 112, 41, 0.3);
+    color: #F1EBE4;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .font-serif {
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .glass-card {
+    background: rgba(241, 235, 228, 0.05);
+    border: 1px solid rgba(241, 235, 228, 0.08);
+    border-radius: 4px;
+    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .glass-card:hover {
+    background: rgba(241, 235, 228, 0.10);
+    border-color: rgba(241, 235, 228, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.3s ease;
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
