@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { MutableRefObject } from 'react';
+import type { CSSProperties, MutableRefObject } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Lenis from 'lenis';
@@ -9,12 +9,12 @@ interface NavigationProps {
 }
 
 const links = [
-  { label: 'Home', path: '/', section: 'hero' },
-  { label: 'Services', path: '/', section: 'services' },
-  { label: 'Jurisdictions', path: '/', section: 'jurisdictions' },
-  { label: 'Process', path: '/', section: 'process' },
-  { label: 'Insights', path: '/', section: 'insights' },
-  { label: 'Contact', path: '/', section: 'contact' },
+  { label: 'Home', section: 'hero' },
+  { label: 'Services', section: 'services' },
+  { label: 'Jurisdictions', section: 'jurisdictions' },
+  { label: 'Process', section: 'process' },
+  { label: 'Insights', section: 'insights' },
+  { label: 'Contact', section: 'contact' },
 ];
 
 export default function Navigation({ lenisRef }: NavigationProps) {
@@ -56,7 +56,7 @@ export default function Navigation({ lenisRef }: NavigationProps) {
 
     if (location.pathname !== '/') {
       navigate('/');
-      window.setTimeout(performScroll, 120);
+      window.setTimeout(performScroll, 160);
     } else {
       performScroll();
     }
@@ -115,7 +115,7 @@ export default function Navigation({ lenisRef }: NavigationProps) {
 
         <nav className="mobile-links" aria-label="Mobile navigation">
           {links.map((link, index) => (
-            <button key={link.label} onClick={() => scrollToSection(link.section)} style={{ '--delay': `${index * 55}ms` } as React.CSSProperties}>
+            <button key={link.label} onClick={() => scrollToSection(link.section)} style={{ '--delay': `${index * 55}ms` } as CSSProperties}>
               <span>0{index + 1}</span>
               {link.label}
             </button>
