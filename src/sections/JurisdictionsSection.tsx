@@ -1,190 +1,70 @@
-import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ArrowRight, CircleCheck } from 'lucide-react';
 
 const jurisdictions = [
   {
-    label: 'UNRESTRICTED TRADE',
     title: 'Mainland',
     slug: 'mainland',
-    description: 'Operate anywhere in the UAE and internationally. 100% foreign ownership available for most activities.',
-    cta: 'Explore Mainland',
+    label: 'Local market access',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80',
+    description: 'A flexible option for businesses that want to trade across the UAE and serve local clients.',
+    points: ['Trade throughout the UAE', 'Broad activity options', 'Flexible growth potential'],
   },
   {
-    label: 'TAX EFFICIENT',
     title: 'Free Zone',
     slug: 'free-zone',
-    description: '0% Corporate Tax benefits, 100% foreign ownership, and simplified setup processes.',
-    cta: 'Explore Free Zone',
+    label: 'Streamlined setup',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80',
+    description: 'An efficient route for international entrepreneurs, startups and specialised activities.',
+    points: ['100% foreign ownership', 'Multiple package options', 'Industry-focused jurisdictions'],
   },
   {
-    label: 'ASSET PROTECTION',
     title: 'Offshore',
     slug: 'offshore',
-    description: 'Secure your global assets and manage wealth with complete privacy and confidentiality.',
-    cta: 'Explore Offshore',
+    label: 'International structuring',
+    image: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=1000&q=80',
+    description: 'A structure designed for eligible international activities, holding and asset planning.',
+    points: ['International orientation', 'Simple ownership structure', 'Specialised use cases'],
   },
 ];
 
-interface JurisdictionsSectionProps {
-  // no props needed
-}
-
-export default function JurisdictionsSection(_props: JurisdictionsSectionProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(cardsRef.current?.children || [],
-        { y: 40, opacity: 0 },
-        {
-          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
+export default function JurisdictionsSection() {
   return (
-    <div
-      ref={sectionRef}
-      style={{
-        padding: 'clamp(6rem, 10vh, 10rem) clamp(1.5rem, 5vw, 4rem)',
-        maxWidth: '1400px',
-        margin: '0 auto',
-      }}
-    >
-      {/* Heading */}
-      <h2
-        className="font-display"
-        style={{
-          fontSize: 'clamp(2rem, 4vw, 3rem)',
-          fontWeight: 700,
-          lineHeight: 1.1,
-          letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
-          color: '#F1EBE4',
-          textAlign: 'center',
-        }}
-      >
-        Choose Your Jurisdiction
-      </h2>
+    <div className="jurisdictions-overview">
+      <div className="section-heading">
+        <span className="eyebrow">Choose the right structure</span>
+        <h2>UAE business jurisdictions explained</h2>
+        <p>Compare the main routes for establishing your company and choose the option aligned with your market, ownership and operational needs.</p>
+      </div>
 
-      <p
-        className="font-body"
-        style={{
-          fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)',
-          fontWeight: 300,
-          lineHeight: 1.65,
-          color: 'rgba(241, 235, 228, 0.5)',
-          textAlign: 'center',
-          maxWidth: '500px',
-          margin: '0.75rem auto 0',
-        }}
-      >
-        Select the perfect setup for your business goals and operational needs.
-      </p>
-
-      {/* Cards */}
-      <div
-        ref={cardsRef}
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '2rem',
-          marginTop: '4rem',
-        }}
-        className="jurisdiction-cards"
-      >
-        {jurisdictions.map((j) => (
-          <div
-            key={j.title}
-            className="glass-card"
-            style={{
-              padding: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              cursor: 'default',
-              opacity: 0,
-            }}
-          >
-            <span
-              className="font-mono"
-              style={{
-                fontSize: '0.7rem',
-                fontWeight: 400,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#E87029',
-              }}
-            >
-              {j.label}
-            </span>
-
-            <h4
-              className="font-display"
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                lineHeight: 1.2,
-                color: '#F1EBE4',
-                marginTop: '1rem',
-              }}
-            >
-              {j.title}
-            </h4>
-
-            <p
-              className="font-body"
-              style={{
-                fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)',
-                fontWeight: 300,
-                lineHeight: 1.65,
-                color: 'rgba(241, 235, 228, 0.5)',
-                marginTop: '0.75rem',
-                flex: 1,
-              }}
-            >
-              {j.description}
-            </p>
-
-            <Link
-              to={`/services/${j.slug}`}
-              className="font-body link-underline"
-              style={{
-                color: '#E87029',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                marginTop: '1.5rem',
-                display: 'inline-block',
-              }}
-            >
-              {j.cta}
-            </Link>
-          </div>
+      <div className="jurisdiction-cards">
+        {jurisdictions.map((item) => (
+          <article className="jurisdiction-card" key={item.title}>
+            <div className="jurisdiction-image">
+              <img src={item.image} alt={`${item.title} business setup in the UAE`} loading="lazy" />
+            </div>
+            <div className="jurisdiction-body">
+              <span className="jurisdiction-label">{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <ul>
+                {item.points.map((point) => (
+                  <li key={point}><CircleCheck size={15} /> {point}</li>
+                ))}
+              </ul>
+              <Link to={`/services/${item.slug}`}>Explore {item.title} <ArrowRight size={15} /></Link>
+            </div>
+          </article>
         ))}
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .jurisdiction-cards {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+      <div className="jurisdiction-cta">
+        <div>
+          <h3>Mainland, free zone or offshore?</h3>
+          <p>We assess your activity, budget and long-term plans before recommending the most suitable route.</p>
+        </div>
+        <a className="button button-primary" href="#contact">Compare options</a>
+      </div>
     </div>
   );
 }
