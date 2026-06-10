@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, MutableRefObject } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Lenis from 'lenis';
 
 interface NavigationProps {
@@ -20,7 +20,6 @@ const links = [
 export default function Navigation({ lenisRef }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -33,7 +32,6 @@ export default function Navigation({ lenisRef }: NavigationProps) {
 
   useEffect(() => {
     setMobileOpen(false);
-    setLangOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -52,7 +50,6 @@ export default function Navigation({ lenisRef }: NavigationProps) {
     };
 
     setMobileOpen(false);
-    setLangOpen(false);
 
     if (location.pathname !== '/') {
       navigate('/');
@@ -79,19 +76,6 @@ export default function Navigation({ lenisRef }: NavigationProps) {
           </nav>
 
           <div className="nav-actions">
-            <div className="language-picker">
-              <button className="language-button" onClick={() => setLangOpen((value) => !value)} aria-expanded={langOpen}>
-                EN <ChevronDown size={14} />
-              </button>
-              {langOpen && (
-                <div className="language-menu">
-                  <button className="active">EN</button>
-                  <button>AR</button>
-                  <button>RU</button>
-                </div>
-              )}
-            </div>
-
             <button className="button button-primary nav-consultation" onClick={() => scrollToSection('contact')}>
               Book consultation
             </button>
