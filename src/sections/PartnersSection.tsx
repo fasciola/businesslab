@@ -1,107 +1,42 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const partners = [
-  { name: 'ANC', width: 60 },
-  { name: 'DMCC', width: 100 },
-  { name: 'Dubai Economy and Tourism', width: 140 },
-  { name: 'IFZA', width: 80 },
-  { name: 'Jafza', width: 80 },
-  { name: 'RAKEZ', width: 80 },
-  { name: 'SPC', width: 60 },
+const steps = [
+  {
+    number: '01',
+    title: 'Consultation',
+    description: 'We understand your business activity, ownership needs, target market and available budget.',
+  },
+  {
+    number: '02',
+    title: 'Structure selection',
+    description: 'We compare suitable mainland, free-zone and offshore options before recommending a route.',
+  },
+  {
+    number: '03',
+    title: 'Documents and approvals',
+    description: 'Our team coordinates the application, documentation and required authority approvals.',
+  },
+  {
+    number: '04',
+    title: 'Launch and support',
+    description: 'Receive your licence and continue with residency, banking and operational support.',
+  },
 ];
 
 export default function PartnersSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const logosRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(logosRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1, duration: 0.6, ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 85%',
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div
-      ref={sectionRef}
-      style={{
-        padding: '4rem clamp(1.5rem, 5vw, 4rem) 6rem',
-        maxWidth: '1400px',
-        margin: '0 auto',
-        borderTop: '1px solid rgba(241, 235, 228, 0.08)',
-      }}
-    >
-      {/* Heading */}
-      <p
-        className="font-mono"
-        style={{
-          fontSize: '0.7rem',
-          fontWeight: 400,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: 'rgba(241, 235, 228, 0.5)',
-          textAlign: 'center',
-        }}
-      >
-        Our Strategic Partners
-      </p>
+    <div className="process-overview">
+      <div className="section-heading">
+        <span className="eyebrow">How it works</span>
+        <h2>Start your company in four clear steps</h2>
+        <p>A straightforward process managed with you from the first consultation through company launch.</p>
+      </div>
 
-      {/* Logos */}
-      <div
-        ref={logosRef}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: '3rem',
-          gap: '2rem',
-          flexWrap: 'wrap',
-          opacity: 0,
-        }}
-      >
-        {partners.map((p) => (
-          <span
-            key={p.name}
-            className="font-display"
-            style={{
-              fontSize: p.name.length > 10 ? '0.85rem' : '1rem',
-              fontWeight: 600,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              color: 'rgba(241, 235, 228, 0.5)',
-              opacity: 0.5,
-              filter: 'grayscale(100%)',
-              transition: 'opacity 0.4s ease, filter 0.4s ease',
-              cursor: 'default',
-              whiteSpace: 'nowrap',
-              flex: '1 1 auto',
-              textAlign: 'center',
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.opacity = '1';
-              (e.target as HTMLElement).style.filter = 'grayscale(0%)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.opacity = '0.5';
-              (e.target as HTMLElement).style.filter = 'grayscale(100%)';
-            }}
-          >
-            {p.name}
-          </span>
+      <div className="process-grid">
+        {steps.map((step) => (
+          <article className="process-card" key={step.number}>
+            <span className="process-number">{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </article>
         ))}
       </div>
     </div>
