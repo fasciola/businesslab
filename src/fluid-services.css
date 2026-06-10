@@ -1,0 +1,82 @@
+.fluid-service-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  overflow: clip;
+  background: #050b10;
+}
+
+.fluid-service-shell > div:first-child {
+  pointer-events: none;
+}
+
+.fluid-service-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 5%, rgba(232, 112, 41, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(3, 10, 15, 0.28) 0%, rgba(3, 10, 15, 0.5) 42%, rgba(3, 10, 15, 0.72) 100%);
+}
+
+.fluid-service-content {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+}
+
+.fluid-service-content > div {
+  background: transparent !important;
+}
+
+.fluid-service-content > div > div:first-child > div:first-child {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(232, 112, 41, 0.12) 0%, transparent 48%),
+    radial-gradient(ellipse at 70% 75%, rgba(41, 174, 205, 0.12) 0%, transparent 48%),
+    linear-gradient(180deg, rgba(2, 8, 12, 0.12), rgba(2, 8, 12, 0.34)) !important;
+}
+
+.fluid-service-content > div > div:first-child > div:last-child {
+  background: linear-gradient(to bottom, transparent, rgba(3, 10, 15, 0.62)) !important;
+}
+
+.fluid-service-content .glass-card {
+  background: rgba(8, 23, 32, 0.66) !important;
+  border: 1px solid rgba(130, 220, 238, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22) !important;
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+.fluid-service-content .glass-card:hover {
+  border-color: rgba(232, 112, 41, 0.35) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3) !important;
+}
+
+.fluid-service-content h1,
+.fluid-service-content h2,
+.fluid-service-content h3,
+.fluid-service-content h4 {
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 768px) {
+  .fluid-service-overlay {
+    background:
+      radial-gradient(circle at 50% 2%, rgba(232, 112, 41, 0.1), transparent 30%),
+      linear-gradient(180deg, rgba(3, 10, 15, 0.38), rgba(3, 10, 15, 0.76));
+  }
+
+  .fluid-service-content .glass-card {
+    background: rgba(8, 23, 32, 0.76) !important;
+    backdrop-filter: blur(12px) saturate(115%);
+    -webkit-backdrop-filter: blur(12px) saturate(115%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluid-service-overlay {
+    background: rgba(3, 10, 15, 0.7);
+  }
+}
