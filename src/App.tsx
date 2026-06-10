@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
-import ServiceDetailPage from './pages/ServiceDetailPage';
+import FluidServiceDetailPage from './pages/FluidServiceDetailPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +45,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage lenisRef={lenisRef} />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/:slug" element={<ServiceDetailPage />} />
+        <Route path="/services/:slug" element={<FluidServiceDetailPage />} />
       </Routes>
     </div>
   );
