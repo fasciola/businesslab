@@ -7,9 +7,17 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (!contentRef.current) return;
+
     const nodes = contentRef.current.querySelectorAll('[data-animate]');
-    const tween = gsap.fromTo(nodes, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
-    return () => tween.kill();
+    const tween = gsap.fromTo(
+      nodes,
+      { y: 24, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
+    );
+
+    return () => {
+      tween.kill();
+    };
   }, []);
 
   const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
