@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import Lenis from 'lenis';
 import HeroSection from '../sections/HeroSection';
@@ -14,37 +13,25 @@ interface HomePageProps {
 }
 
 export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
-  const mainRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div ref={mainRef} style={{ position: 'relative', zIndex: 1 }}>
-      <section id="hero" style={{ position: 'relative', zIndex: 1 }}>
-        <HeroSection />
-      </section>
-
-      <section id="introduction" style={{ position: 'relative', zIndex: 2, background: '#050302' }}>
+    <main className="home-page">
+      <HeroSection />
+      <section id="services" className="page-section page-section-light">
         <IntroductionSection />
       </section>
-
-      <section id="jurisdictions" style={{ position: 'relative', zIndex: 2, background: 'rgba(241, 235, 228, 0.02)' }}>
+      <section id="jurisdictions" className="page-section page-section-peach">
         <JurisdictionsSection />
       </section>
-
-      <section id="success-stories" style={{ position: 'relative', zIndex: 2, background: '#050302' }}>
-        <SuccessStoriesSection />
-      </section>
-
-      <section id="partners" style={{ position: 'relative', zIndex: 2, background: '#050302' }}>
+      <section id="process" className="page-section page-section-light">
         <PartnersSection />
       </section>
-
-      <section id="contact" style={{ position: 'relative', zIndex: 2, background: '#050302' }}>
+      <section id="insights" className="page-section page-section-navy">
+        <SuccessStoriesSection />
+      </section>
+      <section id="contact" className="page-section page-section-contact">
         <ContactSection />
       </section>
-
-      <div style={{ position: 'relative', zIndex: 2, background: '#050302' }}>
-        <Footer />
-      </div>
-    </div>
+      <Footer />
+    </main>
   );
 }
