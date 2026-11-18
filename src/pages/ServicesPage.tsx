@@ -6,6 +6,7 @@ import CtaBand from '../components/CtaBand';
 import Img, { ph } from '../components/Img';
 import Footer from '../sections/Footer';
 import { useReveal } from '../hooks/useReveal';
+import { useSeo } from '../hooks/useSeo';
 
 const services = [
   {
@@ -53,6 +54,7 @@ const services = [
 export default function ServicesPage() {
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
+  useSeo('UAE Business Setup Services: Licensing, Visas, Banking | Business Lab','Company formation, residency visas, corporate banking, compliance and relocation support in the UAE, handled end to end by Business Lab.','/services');
 
   return (
     <div ref={ref} className="inner-page">

@@ -12,6 +12,7 @@ const links = [
   { label: 'Home', section: 'hero' },
   { label: 'Services', section: 'services' },
   { label: 'Jurisdictions', section: 'jurisdictions' },
+  { label: 'Packages', section: 'packages' },
   { label: 'Process', section: 'process' },
   { label: 'Insights', section: 'insights' },
   { label: 'Contact', section: 'contact' },

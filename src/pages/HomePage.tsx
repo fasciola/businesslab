@@ -7,6 +7,8 @@ import HeroSection from '../sections/HeroSection';
 import StatementSection from '../sections/StatementSection';
 import ServiceShowcase from '../sections/ServiceShowcase';
 import ProcessFilmSection from '../sections/ProcessFilmSection';
+import PackagesSection from '../sections/PackagesSection';
+import { useSeo } from '../hooks/useSeo';
 import IntroductionSection from '../sections/IntroductionSection';
 import JurisdictionsSection from '../sections/JurisdictionsSection';
 import SuccessStoriesSection from '../sections/SuccessStoriesSection';
@@ -22,6 +24,11 @@ interface HomePageProps {
 
 export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
   const pageRef = useRef<HTMLElement>(null);
+  useSeo(
+    'Business Setup in Dubai & UAE | Company Formation from AED 4,888 | Business Lab',
+    'Set up a mainland, free zone or offshore company in the UAE. Free zone packages from AED 4,888, residency visas, banking and tax support. Book a free consultation with Business Lab.',
+    '/',
+  );
 
   useEffect(() => {
     const root = pageRef.current;
@@ -50,6 +57,7 @@ export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
         '.testimonial-card',
         '.insight-card',
         '.faq-item',
+        '.pkg-card',
       ];
 
       groups.forEach((selector) => {
@@ -101,6 +109,9 @@ export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
       <ServiceShowcase />
       <section id="jurisdictions" className="page-section page-section-peach animated-section">
         <JurisdictionsSection />
+      </section>
+      <section id="packages" className="page-section page-section-peach animated-section">
+        <PackagesSection />
       </section>
       <section id="process" className="page-section page-section-light animated-section">
         <PartnersSection />

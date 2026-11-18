@@ -118,9 +118,7 @@ export default function HeroSection() {
         <div className="hero-media">
           <Img className="hero-poster" src="/images/hero-main.jpg" fallback={ph('hero-main')} alt="" />
           <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
-            {/* generated hero film first, existing background video until it arrives */}
             <source src={isMobile ? '/videos/hero-mobile.mp4' : '/videos/hero-desktop.mp4'} type="video/mp4" />
-            <source src="/videos/hero-bg.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
           <div className="hero-pattern" />

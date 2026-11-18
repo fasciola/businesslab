@@ -7,6 +7,7 @@ import CtaBand from '../components/CtaBand';
 import ServiceIcon from '../components/ServiceIcon';
 import Footer from '../sections/Footer';
 import { useReveal } from '../hooks/useReveal';
+import { useSeo } from '../hooks/useSeo';
 import { serviceDataMap, type ServiceData } from '../data/serviceData';
 
 const objectFor: Record<string, string> = {
@@ -69,6 +70,11 @@ export default function ServiceDetailPage() {
   const service = slug ? serviceDataMap[slug] : null;
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref, [slug]);
+  useSeo(
+    service ? `${service.heroTitle} | Business Lab` : 'Service not found | Business Lab',
+    service ? service.heroDescription : 'This service page could not be found.',
+    `/services/${slug ?? ''}`,
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
