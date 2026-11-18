@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Img, { ph } from '../components/Img';
@@ -12,43 +13,57 @@ const slides = [
   { id: 'c6', file: 'showcase-accounting-tax', title: 'Tax and accounting', points: ['Bookkeeping', 'Corporate tax support', 'VAT registration and filing'], to: '#contact' },
 ];
 
+const STEP_VH = 0.7; // scroll distance (in viewport heights) per service
+
 export default function ServiceShowcase() {
   const [index, setIndex] = useState(0);
-  const [drag, setDrag] = useState(0);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const start = useRef<{ x: number; y: number } | null>(null);
+  const [scrollMode, setScrollMode] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const len = slides.length;
 
-  const go = useCallback((i: number) => setIndex(((i % len) + len) % len), [len]);
-
+  // scroll drives the active service; reduced-motion users keep button/arrow control
   useEffect(() => {
-    const el = stageRef.current;
-    if (!el) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') go(index + 1);
-      if (e.key === 'ArrowLeft') go(index - 1);
-    };
-    el.addEventListener('keydown', onKey);
-    return () => el.removeEventListener('keydown', onKey);
-  }, [index, go]);
+    const el = sectionRef.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setScrollMode(true);
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => setIndex(Math.min(len - 1, Math.floor(self.progress * len))),
+    });
+    return () => { st.kill(); setScrollMode(false); };
+  }, [len]);
 
-  const onDown = (e: React.PointerEvent) => { start.current = { x: e.clientX, y: e.clientY }; };
-  const onMove = (e: React.PointerEvent) => {
-    if (!start.current) return;
-    const dx = e.clientX - start.current.x;
-    if (Math.abs(dx) > 6) setDrag(dx);
-  };
-  const onUp = () => {
-    if (!start.current) return;
-    if (Math.abs(drag) > 70) go(index + (drag < 0 ? 1 : -1));
-    start.current = null;
-    setDrag(0);
-  };
+  // the section only becomes tall after scrollMode renders, so re-measure every trigger
+  useEffect(() => {
+    if (scrollMode) ScrollTrigger.refresh();
+  }, [scrollMode]);
+
+  const go = useCallback((i: number) => {
+    const next = Math.min(len - 1, Math.max(0, i));
+    const el = sectionRef.current;
+    if (scrollMode && el) {
+      // jump to the scroll position that shows service `next`
+      const range = el.offsetHeight - window.innerHeight;
+      const top = el.getBoundingClientRect().top + window.scrollY + ((next + 0.5) / len) * range;
+      window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      setIndex(next);
+    }
+  }, [len, scrollMode]);
 
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <section id="showcase" className="showcase" aria-label="Our services">
+    <section
+      id="showcase"
+      ref={sectionRef}
+      className={`showcase${scrollMode ? ' is-scroll' : ''}`}
+      aria-label="Our services"
+      style={scrollMode ? { height: `${Math.round((len * STEP_VH + 1) * 100)}svh` } : undefined}
+    >
+      <div className="showcase-pin">
       <div className="showcase-wrap">
         <div className="showcase-head">
           <div>
@@ -57,22 +72,14 @@ export default function ServiceShowcase() {
           </div>
           <div className="sc-controls">
             <span className="sc-count" aria-live="polite">{pad(index + 1)} / {pad(len)}</span>
-            <button className="sc-btn" type="button" aria-label="Previous service" onClick={() => go(index - 1)}><ChevronLeft size={20} /></button>
-            <button className="sc-btn" type="button" aria-label="Next service" onClick={() => go(index + 1)}><ChevronRight size={20} /></button>
+            <button className="sc-btn" type="button" aria-label="Previous service" onClick={() => go(index - 1)} disabled={index === 0}><ChevronLeft size={20} /></button>
+            <button className="sc-btn" type="button" aria-label="Next service" onClick={() => go(index + 1)} disabled={index === len - 1}><ChevronRight size={20} /></button>
           </div>
         </div>
 
-        <div
-          ref={stageRef}
-          className={`sc-stage${drag ? ' is-dragging' : ''}`}
-          tabIndex={0}
-          onPointerDown={onDown}
-          onPointerMove={onMove}
-          onPointerUp={onUp}
-          onPointerLeave={onUp}
-        >
+        <div className="sc-stage">
           <Img className="sc-bg" src="/images/showcase-bg.png" fallback={ph('showcase-bg')} alt="" />
-          <ul className="sc-track" style={{ transform: `translate3d(calc(${-index * 100}% + ${drag}px), 0, 0)` }}>
+          <ul className="sc-track" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
             {slides.map((s, i) => (
               <li key={s.id} className={`sc-slide${i === index ? ' is-active' : ''}`} aria-roledescription="slide" aria-label={`${i + 1} of ${len}`}>
                 <article className="sc-card">
@@ -94,7 +101,8 @@ export default function ServiceShowcase() {
             ))}
           </div>
         </div>
-        <p className="showcase-note">Concept imagery is illustrative.</p>
+        <p className="showcase-note">{scrollMode ? 'Scroll to explore each service. ' : ''}Concept imagery is illustrative.</p>
+      </div>
       </div>
     </section>
   );
