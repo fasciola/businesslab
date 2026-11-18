@@ -16,17 +16,17 @@ export default function Footer() {
           <div className="footer-column">
             <h3>Services</h3>
             <Link to="/services">Company formation</Link>
-            <Link to="/services">Mainland setup</Link>
-            <Link to="/services">Free-zone setup</Link>
-            <Link to="/services">Residency and visas</Link>
+            <Link to="/services/mainland">Mainland setup</Link>
+            <Link to="/services/free-zone">Free-zone setup</Link>
+            <Link to="/services/visa">Residency and visas</Link>
           </div>
 
           <div className="footer-column">
             <h3>Company</h3>
-            <a href="#services">Our services</a>
-            <a href="#jurisdictions">Jurisdictions</a>
-            <a href="#process">Our process</a>
-            <a href="#insights">Insights</a>
+            <Link to="/#services">Our services</Link>
+            <Link to="/#jurisdictions">Jurisdictions</Link>
+            <Link to="/#process">Our process</Link>
+            <Link to="/#insights">Insights</Link>
           </div>
 
           <div className="footer-column footer-contact">

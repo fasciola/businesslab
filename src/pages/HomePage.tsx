@@ -4,6 +4,9 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from '../sections/HeroSection';
+import StatementSection from '../sections/StatementSection';
+import ServiceShowcase from '../sections/ServiceShowcase';
+import ProcessFilmSection from '../sections/ProcessFilmSection';
 import IntroductionSection from '../sections/IntroductionSection';
 import JurisdictionsSection from '../sections/JurisdictionsSection';
 import SuccessStoriesSection from '../sections/SuccessStoriesSection';
@@ -67,30 +70,6 @@ export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
         });
       });
 
-      gsap.to('.hero-video', {
-        scale: 1.08,
-        yPercent: 7,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
-
-      gsap.to('.hero-content', {
-        yPercent: 18,
-        opacity: 0.2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
-
       gsap.fromTo(
         '.contact-grid',
         { y: 50, opacity: 0, scale: 0.98 },
@@ -105,17 +84,9 @@ export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
       );
     }, root);
 
-    const onPointerMove = (event: PointerEvent) => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 12;
-      const y = (event.clientY / window.innerHeight - 0.5) * 8;
-      gsap.to('.hero-pattern', { x, y, duration: 1.2, ease: 'power2.out' });
-    };
-
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
     ScrollTrigger.refresh();
 
     return () => {
-      window.removeEventListener('pointermove', onPointerMove);
       ctx.revert();
     };
   }, []);
@@ -123,15 +94,18 @@ export default function HomePage({ lenisRef: _lenisRef }: HomePageProps) {
   return (
     <main ref={pageRef} className="home-page">
       <HeroSection />
+      <StatementSection />
       <section id="services" className="page-section page-section-light animated-section">
         <IntroductionSection />
       </section>
+      <ServiceShowcase />
       <section id="jurisdictions" className="page-section page-section-peach animated-section">
         <JurisdictionsSection />
       </section>
       <section id="process" className="page-section page-section-light animated-section">
         <PartnersSection />
       </section>
+      <ProcessFilmSection />
       <section id="insights" className="page-section page-section-navy animated-section">
         <SuccessStoriesSection />
       </section>

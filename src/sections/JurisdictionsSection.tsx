@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CircleCheck } from 'lucide-react';
+import Img from '../components/Img';
 
 const jurisdictions = [
   {
     title: 'Mainland',
     slug: 'mainland',
     label: 'Local market access',
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d1.jpg',
+    fallback: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80',
     description: 'A flexible option for businesses that want to trade across the UAE and serve local clients.',
     points: ['Trade throughout the UAE', 'Broad activity options', 'Flexible growth potential'],
   },
@@ -14,7 +16,8 @@ const jurisdictions = [
     title: 'Free Zone',
     slug: 'free-zone',
     label: 'Streamlined setup',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d2.jpg',
+    fallback: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80',
     description: 'An efficient route for international entrepreneurs, startups and specialised activities.',
     points: ['100% foreign ownership', 'Multiple package options', 'Industry-focused jurisdictions'],
   },
@@ -22,7 +25,8 @@ const jurisdictions = [
     title: 'Offshore',
     slug: 'offshore',
     label: 'International structuring',
-    image: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d3.jpg',
+    fallback: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=1000&q=80',
     description: 'A structure designed for eligible international activities, holding and asset planning.',
     points: ['International orientation', 'Simple ownership structure', 'Specialised use cases'],
   },
@@ -41,7 +45,7 @@ export default function JurisdictionsSection() {
         {jurisdictions.map((item) => (
           <article className="jurisdiction-card" key={item.title}>
             <div className="jurisdiction-image">
-              <img src={item.image} alt={`${item.title} business setup in the UAE`} loading="lazy" />
+              <Img src={item.image} fallback={item.fallback} alt={`${item.title} business setup in the UAE`} loading="lazy" />
             </div>
             <div className="jurisdiction-body">
               <span className="jurisdiction-label">{item.label}</span>

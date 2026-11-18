@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
-import FluidServiceDetailPage from './pages/FluidServiceDetailPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,10 +34,20 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      window.setTimeout(() => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (lenisRef.current) lenisRef.current.scrollTo(el, { offset: -84 });
+        else el.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+      return;
+    }
     if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
     else window.scrollTo(0, 0);
     ScrollTrigger.refresh();
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="site-shell">
@@ -45,7 +55,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage lenisRef={lenisRef} />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/:slug" element={<FluidServiceDetailPage />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage />} />
       </Routes>
     </div>
   );

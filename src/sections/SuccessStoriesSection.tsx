@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, ChevronDown, Quote, Star } from 'lucide-react';
+import Img from '../components/Img';
 
 const testimonials = [
   {
@@ -23,17 +24,20 @@ const insights = [
   {
     category: 'Company formation',
     title: 'Mainland or free zone: how to choose the right route',
-    image: 'https://images.unsplash.com/photo-1528702748617-c64d49f918af?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d4.jpg',
+    fallback: 'https://images.unsplash.com/photo-1528702748617-c64d49f918af?auto=format&fit=crop&w=1000&q=80',
   },
   {
     category: 'Business guide',
     title: 'Documents to prepare before starting your UAE company',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d5.jpg',
+    fallback: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80',
   },
   {
     category: 'UAE market',
     title: 'Planning your first year of operations in the UAE',
-    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/d6.jpg',
+    fallback: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80',
   },
 ];
 
@@ -81,7 +85,7 @@ export default function SuccessStoriesSection() {
         <div className="insights-grid">
           {insights.map((item) => (
             <article className="insight-card" key={item.title}>
-              <img src={item.image} alt="" loading="lazy" />
+              <Img src={item.image} fallback={item.fallback} alt="" loading="lazy" />
               <div className="insight-body">
                 <span>{item.category}</span>
                 <h3>{item.title}</h3>
